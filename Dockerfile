@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.6.2-runtime-ubuntu22.04
+FROM --platform=linux/amd64 nvidia/cuda:12.6.2-runtime-ubuntu22.04
 
 # Arguments for user ID, group ID, and code-server version.
 ARG UID=1000
@@ -75,7 +75,7 @@ RUN curl -fL "https://github.com/coder/code-server/releases/download/v${CODE_SER
     ln -s "/usr/local/lib/code-server-${CODE_SERVER_VERSION}-linux-amd64/bin/code-server" /usr/local/bin/code-server
 
 # Create a non-root user 'coder' and grant sudo access.
-RUN groupadd -g ${GID} coder && \
+RUN groupadd -g ${GID} coder || true && \
     useradd -m -s /bin/bash -u ${UID} -g ${GID} coder && \
     adduser coder sudo && \
     echo 'coder ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers

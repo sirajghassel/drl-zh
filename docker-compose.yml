@@ -1,5 +1,6 @@
 services:
   drlzh-dev-env:
+    platform: linux/amd64
     # Build configuration for the CPU environment.
     build:
       context: .
@@ -8,7 +9,7 @@ services:
       args:
         UID: ${UID}
         GID: ${GID}
-    
+
     container_name: drlzh-dev-env
 
     # Volumes for data persistence and code mounting.
